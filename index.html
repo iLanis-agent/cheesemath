@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CheeseMath - Home Cheesemaking Math That Holds Up</title>
+<meta name="description" content="Milk-to-cheese yield by style, rennet and culture dosing, curd salt, press weight schedules and aging-cave conditions - honest numbers for the home cheesemaker.">
+<link rel="canonical" href="https://ilanis-agent.github.io/cheesemath/">
+<meta property="og:title" content="CheeseMath - Home Cheesemaking Math That Holds Up">
+<meta property="og:description" content="Milk-to-cheese yield by style, rennet and culture dosing, curd salt, press weight schedules and aging-cave conditions - honest numbers for the home cheesemaker.">
+<meta property="og:url" content="https://ilanis-agent.github.io/cheesemath/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#8a6a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%A7%80%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#1c1708; --card:#282010; --ink:#f7f0dc; --muted:#c9b584;
+  --accent:#e8bf3a; --accent2:#f2e14e; --line:#4d4222; --good:#8fd18a; --warn:#f2c14e; --bad:#e86a5a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:1rem}
+.wrap{max-width:760px;margin:0 auto}
+header{text-align:center;padding:1.6rem 0 1.2rem}
+h1{font-size:2.1rem;color:var(--accent2);letter-spacing:.5px}
+.tag{color:var(--muted);margin-top:.3rem;font-size:.98rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.2rem;margin:1rem 0}
+.card h2{font-size:1.05rem;color:var(--accent);margin-bottom:.7rem}
+.row{display:flex;flex-wrap:wrap;gap:.9rem;align-items:flex-end;margin:.5rem 0}
+.field{display:flex;flex-direction:column;gap:.25rem}
+label{font-size:.8rem;color:var(--muted)}
+input,select{background:#171204;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:.45rem .6rem;font-size:1rem;width:8.5rem}
+input:focus,select:focus{outline:2px solid var(--accent)}
+button{background:var(--accent);color:#1c1708;border:0;border-radius:8px;padding:.5rem 1.1rem;font-size:.95rem;font-weight:700;cursor:pointer}
+button:hover{background:#f2cf5c}
+.presets{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0 .2rem}
+.presets button{background:transparent;border:1px solid var(--line);color:var(--muted);font-weight:400;padding:.35rem .8rem;font-size:.85rem}
+.presets button:hover{border-color:var(--accent);color:var(--ink)}
+.big{font-size:1.3rem;font-weight:700;color:var(--accent2)}
+.result{margin-top:.6rem;font-size:1rem;min-height:1.4rem}
+.result small{color:var(--muted);display:block;margin-top:.25rem}
+.verdict-ok{color:var(--good)} .verdict-tight{color:var(--warn)} .verdict-bad{color:var(--bad)}
+.era{font-size:.85rem;color:var(--muted);margin-bottom:.6rem;font-style:italic}
+footer{margin:2rem 0 1rem;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem}
+footer code{color:var(--accent)}
+details{margin-top:.4rem} summary{cursor:pointer;color:var(--muted);font-size:.85rem}
+table{border-collapse:collapse;margin-top:.5rem;font-size:.9rem}
+td,th{border:1px solid var(--line);padding:.3rem .6rem;text-align:left}
+th{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>&#129472; CheeseMath</h1>
+<p class="tag">Home cheesemaking math that holds up. Yield, rennet, salt, pressing - numbers you can plan a wheel on.</p>
+</header>
+
+<section class="card" id="c-yield">
+<h2>Milk to cheese</h2>
+<p class="era">A gallon of milk weighs 8.6 lb and does not become 8.6 lb of cheese. Here is the honest yield by style.</p>
+<div class="presets" id="presets-yield"></div>
+<div class="row">
+  <div class="field"><label for="in-style">style</label>
+    <select id="in-style">
+      <option value="cheddar">Cheddar</option>
+      <option value="gouda">Gouda</option>
+      <option value="mozzarella">Mozzarella</option>
+      <option value="feta">Feta</option>
+      <option value="paneer">Paneer</option>
+      <option value="ricotta">Ricotta</option>
+    </select>
+  </div>
+  <div class="field"><label for="in-milk">milk (gal)</label><input id="in-milk" type="number" min="0.5" step="0.5" value="2"></div>
+</div>
+<button id="btn-yield">Yield math</button>
+<div class="result" id="out-yield"></div>
+</section>
+
+<section class="card" id="c-dose">
+<h2>Rennet, culture &amp; calcium</h2>
+<p class="era">The small ingredients that decide everything. Doses scale with milk volume.</p>
+<div class="row">
+  <div class="field"><label for="in-dmilk">milk (gal)</label><input id="in-dmilk" type="number" min="0.5" step="0.5" value="2"></div>
+</div>
+<button id="btn-dose">Dosing math</button>
+<div class="result" id="out-dose"></div>
+</section>
+
+<section class="card" id="c-press">
+<h2>Salt &amp; press schedule</h2>
+<p class="era">Salt at 2% of curd weight, then press in stages - light, medium, firm - so the curd knits without trapping whey.</p>
+<div class="row">
+  <div class="field"><label for="in-curd">curd (lb)</label><input id="in-curd" type="number" min="0.5" step="0.5" value="2"></div>
+</div>
+<button id="btn-press">Salt &amp; press math</button>
+<div class="result" id="out-press"></div>
+</section>
+
+<section class="card" id="c-aging">
+<h2>Aging cave check</h2>
+<p class="era">Cheese grows up at 50-55&deg;F and 80-85% humidity. Check your cave, fridge, or basement corner.</p>
+<div class="row">
+  <div class="field"><label for="in-temp">temp (&deg;F)</label><input id="in-temp" type="number" min="35" max="75" step="1" value="52"></div>
+  <div class="field"><label for="in-hum">humidity (%)</label><input id="in-hum" type="number" min="40" max="100" step="1" value="82"></div>
+</div>
+<button id="btn-aging">Cave check</button>
+<div class="result" id="out-aging"></div>
+</section>
+
+<section class="card" id="c-why">
+<h2>Why these numbers</h2>
+<details><summary>The assumptions, stated honestly</summary>
+<table>
+<tr><th>Constant</th><th>Value</th><th>Why</th></tr>
+<tr><td>Milk weight</td><td>8.6 lb / gal</td><td>Milk is a bit denser than water - this is the number yields are built on</td></tr>
+<tr><td>Yields</td><td>cheddar 10%, mozzarella 12%, feta 14%</td><td>Percent of milk weight that becomes cheese; harder styles keep less</td></tr>
+<tr><td>Rennet</td><td>1/4 tablet / gal</td><td>A common working rate for tablet rennet; check your brand's strength</td></tr>
+<tr><td>Culture</td><td>1 packet / 2 gal</td><td>DVI direct-vat packets - the label rate for most home packs</td></tr>
+<tr><td>Salt</td><td>2% of curd weight</td><td>Flavor, moisture control and rind formation in one step</td></tr>
+<tr><td>Aging</td><td>50-55&deg;F, 80-85% RH</td><td>Cold enough to slow the bad molds, humid enough to keep the rind alive</td></tr>
+</table>
+<p style="margin-top:.5rem;color:var(--muted);font-size:.85rem">Milk quality decides more than any number here. Pasteurized store milk works; ultra-pasteurized does not set a curd worth pressing.</p>
+</details>
+</section>
+
+<footer>
+<p><strong>CheeseMath</strong> - part of the App Factory collection. Honest small tools, one good idea at a time.</p>
+<p>Source: <code>engine.js</code> (pure functions, tested in CI) &middot; <code>app.html</code> (this UI) &middot; <code>README.md</code></p>
+</footer>
+</div>
+</body>
+</html>
